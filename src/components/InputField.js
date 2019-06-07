@@ -8,9 +8,10 @@ const styles = () => ({});
 
 const hasValue = val => val || val === 0;
 const getValue = val => (hasValue(val) ? val : '');
-
+let dirty = false;
 class InputField extends Component {
     change(e) {
+        dirty = true;
         const { onChange, propertyName, type } = this.props;
         const { value } = e.target;
 
@@ -27,8 +28,8 @@ class InputField extends Component {
         if (type === 'number') {
             val = hasValue(value) ? parseFloat(value) : null;
         }
-
         onChange(propertyName, val);
+        console.log('dirty on change', dirty);
     }
 
     render() {
@@ -37,6 +38,7 @@ class InputField extends Component {
             classes,
             disabled,
             error,
+            required,
             fullWidth,
             helperText,
             label,
@@ -48,12 +50,14 @@ class InputField extends Component {
             type,
             value
         } = this.props;
-
+        console.log('dirty, error', dirty, error);
+        console.log('required, error', required, error);
         return (
             <TextField
                 className={classes.root}
                 disabled={disabled}
-                error={error}
+                error={(dirty && error) || (required && error)}
+                required={required}
                 fullWidth={fullWidth}
                 helperText={helperText}
                 label={label}
@@ -92,6 +96,7 @@ InputField.propTypes = {
     classes: PropTypes.shape({}).isRequired,
     disabled: PropTypes.bool,
     error: PropTypes.bool,
+    required: PropTypes.bool,
     fullWidth: PropTypes.bool,
     helperText: PropTypes.string,
     label: PropTypes.string.isRequired,
@@ -103,7 +108,6 @@ InputField.propTypes = {
     propertyName: PropTypes.string,
     type: PropTypes.string,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-
     onChange: PropTypes.func
 };
 
@@ -111,6 +115,7 @@ InputField.defaultProps = {
     adornment: '',
     disabled: false,
     error: false,
+    required: false,
     fullWidth: false,
     helperText: '',
     margin: 'normal',

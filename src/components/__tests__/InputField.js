@@ -7,11 +7,14 @@ describe('<InputField />', () => {
     let props;
     const getTextField = () => wrapper.find('TextField');
     const shallow = createShallow({ dive: true });
+    const input = '';
 
     beforeEach(() => {
         props = {
             label: 'label',
-            value: 'value',
+            value: input,
+            error: true,
+            required: true,
             onChange: () => {}
         };
         wrapper = shallow(<InputField {...props} />);

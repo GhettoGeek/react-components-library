@@ -10,6 +10,8 @@ const actions = {
     onChange: action('onChange')
 };
 
+const inputValue = '';
+
 storiesOf('InputField', module)
     .addDecorator(story => <div>{story()}</div>)
     .addDecorator(withKnobs)
@@ -33,9 +35,18 @@ storiesOf('InputField', module)
     ))
     .add('Error', () => (
         <InputField
-            value={text('value', 'Error')}
+            value={text('value', inputValue)}
             label={text('label', 'Error')}
-            error
+            error={!inputValue}
+            {...actions}
+        />
+    ))
+    .add('Error required', () => (
+        <InputField
+            value={text('value', inputValue)}
+            label={text('label', 'Error')}
+            error={!inputValue}
+            required
             {...actions}
         />
     ))

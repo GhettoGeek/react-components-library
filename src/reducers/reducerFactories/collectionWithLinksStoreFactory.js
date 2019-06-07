@@ -17,38 +17,38 @@ export default function(
 
     return (state = defaultState, action) => {
         switch (action.type) {
-        case actionTypes[`REQUEST_${itemRoot}`]:
-            return {
-                ...state,
-                loading: true
-            };
-        case actionTypes[`RECEIVE_${itemRoot}`]:
-            return {
-                ...state,
-                loading: false,
-                items: getItems(action.payload.data.responseData),
-                links: action.payload.data.links
-            };
-        case actionTypes[`REQUEST_SEARCH_${itemRoot}`]:
-            return {
-                ...state,
-                searchLoading: true,
-                searchItems: []
-            };
-        case actionTypes[`RECEIVE_SEARCH_${itemRoot}`]:
-            return {
-                ...state,
-                searchLoading: false,
-                searchItems: getItems(action.payload.data.responseData),
-                links: action.payload.data.links
-            };
-        case actionTypes[`CLEAR_SEARCH_${itemRoot}`]:
-            return {
-                ...state,
-                searchLoading: false,
-                searchItems: []
-            };
-        default:
+            case actionTypes[`REQUEST_${itemRoot}`]:
+                return {
+                    ...state,
+                    loading: true
+                };
+            case actionTypes[`RECEIVE_${itemRoot}`]:
+                return {
+                    ...state,
+                    loading: false,
+                    items: getItems(action.payload.data.responseData),
+                    links: action.payload.data.links
+                };
+            case actionTypes[`REQUEST_SEARCH_${itemRoot}`]:
+                return {
+                    ...state,
+                    searchLoading: true,
+                    searchItems: []
+                };
+            case actionTypes[`RECEIVE_SEARCH_${itemRoot}`]:
+                return {
+                    ...state,
+                    searchLoading: false,
+                    searchItems: getItems(action.payload.data.responseData),
+                    links: action.payload.data.links
+                };
+            case actionTypes[`CLEAR_SEARCH_${itemRoot}`]:
+                return {
+                    ...state,
+                    searchLoading: false,
+                    searchItems: []
+                };
+            default:
         }
 
         return state;
